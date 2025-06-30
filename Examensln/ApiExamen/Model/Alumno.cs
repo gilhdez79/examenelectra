@@ -15,6 +15,6 @@ public partial class Alumno
     public string? Apaterno { get; set; }
 
 
-    [JsonIgnore]
+    [JsonIgnore] 
     public virtual ICollection<Escuela> IdEscuelas { get; set; } = new List<Escuela>();
 }

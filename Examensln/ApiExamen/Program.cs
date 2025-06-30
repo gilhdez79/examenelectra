@@ -1,5 +1,7 @@
-using ApiExamen.Model;
+﻿using ApiExamen.Model;
 using Microsoft.EntityFrameworkCore;
+using ApiExamen.Controllers;
+using ApiExamen.Repositorio;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +11,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
- 
+builder.Services.AddScoped<IProfesorEscuela, ProfesorRepository>();
+builder.Services.AddScoped<IAlumnos, AlumnoReposotory>();
+builder.Services.AddScoped<IEscuela, EscuelaRepository>();
+builder.Services.AddScoped<IProfesores, ProfesoresRepository>();
+
+
+
+
 builder.Services.AddDbContext<EscuelaMusicContext>(
          context => context.UseSqlServer(builder.Configuration.GetConnectionString("main_sql")));
 
@@ -30,5 +39,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
 
 app.Run();

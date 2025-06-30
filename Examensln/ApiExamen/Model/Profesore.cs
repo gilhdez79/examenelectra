@@ -15,4 +15,3 @@ public partial class Profesore
     [JsonIgnore]
     public virtual ICollection<Escuela> IdEscuelas { get; set; } = new List<Escuela>();
 }
-3
