@@ -30,5 +30,35 @@ namespace ApiExamen.Controllers
                 return BadRequest(ex);
             }
         }
+        [HttpPut]
+        public async Task<ActionResult> ActualizarEscuela(EscuelaDto entity)
+        {
+            try
+            {
+                var result = await _escuela.ActualizaEscuela(entity);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
+        [HttpDelete]
+        public async Task<ActionResult> EliminaEscuela(int id)
+        {
+            try
+            {
+                var result = await _escuela.EliminaEscuela(id);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
     }
 }

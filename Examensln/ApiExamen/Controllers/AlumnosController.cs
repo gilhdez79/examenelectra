@@ -21,7 +21,7 @@ namespace ApiExamen.Controllers
         public async Task<ActionResult> RegistraAlumno(AlumnoDto entity)
         {
             try
-            {  
+            {
                 var result = await _Alumno.RegistraAlumno(entity);
 
                 return Ok(result);
@@ -32,5 +32,35 @@ namespace ApiExamen.Controllers
                 return BadRequest(ex);
             }
         }
+        [HttpPut]
+        public async Task<ActionResult> ActualizaAlumno(AlumnoDto entity)
+        {
+            try
+            {
+                var result = await _Alumno.ActualizaAlumno(entity);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
+        [HttpPost("EliminaAlumno/{idAlumno}")]
+        public async Task<ActionResult> EliminaAlumno(int idAlumno)
+        {
+            try
+            {
+                var result = await _Alumno.EliminaAlumno(idAlumno);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
     }
+
 }

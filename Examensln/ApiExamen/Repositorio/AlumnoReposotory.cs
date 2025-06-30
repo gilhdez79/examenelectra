@@ -2,7 +2,7 @@
 using ApiExamen.Model;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
- 
+
 
 namespace ApiExamen.Repositorio
 {
@@ -16,19 +16,26 @@ namespace ApiExamen.Repositorio
         }
         public async Task<bool> ActualizaAlumno(AlumnoDto entity)
         {
+            var prmIdAlumno = new SqlParameter("@idAlumno", entity.IdAlumno);
             var prmNombre = new SqlParameter("@Nombre", entity.Nombre);
             var prmApaterno = new SqlParameter("@aPaterno", entity.Apaterno);
             var prmMpaterno = new SqlParameter("@aMaterno", entity.Amaterno);
-            SqlParameter[] parameters = new SqlParameter[] { prmNombre, prmApaterno, prmMpaterno };
+            SqlParameter[] parameters = new SqlParameter[] { prmNombre, prmApaterno, prmMpaterno, prmIdAlumno };
 
-            var result =  await    context.Database.ExecuteSqlRawAsync($"dbo.RegistraAlumno @Nombre, @aPaterno,@aMaterno", parameters);
+            var result =  await    context.Database.ExecuteSqlRawAsync($"dbo.ActualiuzaAlumno @idAlumno, @Nombre, @aPaterno,@aMaterno", parameters);
 
             return   result > 0 ;
         }
 
-        public Task<bool> EliminaAlumno(int Idd)
+        public async Task<bool> EliminaAlumno(int Idd)
         {
-            throw new NotImplementedException();
+            var prmIdAlumno = new SqlParameter("@idAlumno", Idd);
+
+            SqlParameter[] parameters = new SqlParameter[] { prmIdAlumno };
+
+            var result = await context.Database.ExecuteSqlRawAsync($"dbo.EliminaAlumno @idAlumno", parameters);
+
+            return result > 0;
         }
 
         public async Task<bool> RegistraAlumno(AlumnoDto entity)

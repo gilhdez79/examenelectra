@@ -12,21 +12,36 @@ namespace ApiExamen.Repositorio
         {
             context=_context;
         }
-        public Task<bool> ActualizaEscuela(EscuelaDto entity)
+        public async Task<bool> ActualizaEscuela(EscuelaDto entity)
         {
-            throw new NotImplementedException();
+            var prmIdEscuela = new SqlParameter("@idEscuela", entity.IdEscuela);
+            var prmNombre = new SqlParameter("@Nombre", entity.Nombre);
+            var prmDesc = new SqlParameter("@Descripcion", entity.Descripcion);
+
+            SqlParameter[] parameters = new SqlParameter[] { prmNombre, prmDesc };
+
+            var result = await context.Database.ExecuteSqlRawAsync($"dbo.ActualiuzaAlumno @idEscuela, @Nombre, @Descripcion", parameters);
+
+            return result>0;
         }
 
-        public Task<bool> EliminaEscuela(int Id)
+        public async Task<bool> EliminaEscuela(int Id)
         {
-            throw new NotImplementedException();
+            var prmIdEscuela = new SqlParameter("@idEscuela", Id);
+
+
+            SqlParameter[] parameters = new SqlParameter[] { prmIdEscuela };
+
+            var result = await context.Database.ExecuteSqlRawAsync($"dbo.ActualiuzaAlumno @idEscuela, @Nombre, @Descripcion", parameters);
+
+            return result>0;
         }
 
         public async Task<bool> RegistraEscuela(EscuelaDto entity)
         {
             var prmNombre = new SqlParameter("@Nombre", entity.Nombre);
             var prmDesc = new SqlParameter("@Descripcion", entity.Descripcion);
-          
+
             SqlParameter[] parameters = new SqlParameter[] { prmNombre, prmDesc };
 
             var result = await context.Database.ExecuteSqlRawAsync($"dbo.RegistraEscuela @Nombre, @Descripcion", parameters);
