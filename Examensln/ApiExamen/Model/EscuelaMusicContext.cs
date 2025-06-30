@@ -21,11 +21,13 @@ public partial class EscuelaMusicContext : DbContext
 
     public virtual DbSet<Escuela> Escuelas { get; set; }
 
+    public virtual DbSet<ProfesorEscuelaDto> ProfesorEscuelaDtos { get; set; }
+
     public virtual DbSet<Profesore> Profesores { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=LAPTOP-G0P9MAE6\\SQLSERVER2019; Database=escuelamusica; Uid=developer;pwd=123456;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Database=escuelamusica; Uid=developer;pwd=123456;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -50,14 +52,6 @@ public partial class EscuelaMusicContext : DbContext
             entity.HasNoKey();
 
             entity.Property(e => e.IdAlumno).HasColumnName("idAlumno");
-
-            entity.HasOne(d => d.IdAlumnoNavigation).WithMany()
-                .HasForeignKey(d => d.IdAlumno)
-                .HasConstraintName("FK_Alumnosprofesores_Alumnos");
-
-            entity.HasOne(d => d.IdProfesorNavigation).WithMany()
-                .HasForeignKey(d => d.IdProfesor)
-                .HasConstraintName("FK_Alumnosprofesores_Profesores");
         });
 
         modelBuilder.Entity<Escuela>(entity =>
@@ -90,6 +84,23 @@ public partial class EscuelaMusicContext : DbContext
                         j.HasKey("IdEscuela", "IdAlumno");
                         j.ToTable("Alumnosescuela");
                     });
+        });
+
+        modelBuilder.Entity<ProfesorEscuelaDto>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("ProfesorEscuelaDto");
+
+            entity.Property(e => e.Alumno)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Escuela)
+                .HasMaxLength(150)
+                .IsUnicode(false);
+            entity.Property(e => e.Profesor)
+                .HasMaxLength(50)
+                .IsUnicode(false);
         });
 
         modelBuilder.Entity<Profesore>(entity =>

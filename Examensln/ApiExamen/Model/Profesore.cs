@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ApiExamen.Model;
@@ -12,6 +11,5 @@ public partial class Profesore
 
     public string? Apellido { get; set; }
 
-    [JsonIgnore]
     public virtual ICollection<Escuela> IdEscuelas { get; set; } = new List<Escuela>();
 }

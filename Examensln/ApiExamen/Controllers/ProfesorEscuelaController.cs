@@ -14,7 +14,7 @@ namespace ApiExamen.Controllers
 
         public ProfesorEscuelaController(IProfesorEscuela profesorEscuela)
         {
-            _profesorEscuela = profesorEscuela;  
+            _profesorEscuela = profesorEscuela;
         }
         [HttpPost]
         public  async Task<ActionResult> RegistraProfesorEscuela(ProfesorEscuela entity)
@@ -22,6 +22,23 @@ namespace ApiExamen.Controllers
             try
             {
                 var result = await _profesorEscuela.RegistraProfesorEscuela(entity);
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetEscuelasProfesor/{idprofesor}")]
+        public async Task<ActionResult> GetEscuelasProfesor(int idprofesor)
+        {
+            try
+            {
+                var result = await _profesorEscuela.GetProfesorEscuela(idprofesor);
 
                 return Ok(result);
             }
