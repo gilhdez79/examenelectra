@@ -15,8 +15,18 @@ namespace WebAppExamen.Controllers
         // GET: AlumnosController
         public ActionResult Index()
         {
+            var lista = _alumnosServices.FindAllAlumnos();
 
-            return View();
+            return View(lista);
+        }
+
+        [HttpGet]
+        public ActionResult AlumnosIndex()
+        {
+            var lista = _alumnosServices.FindAllAlumnos() .Result;
+
+            return View(lista);
+
         }
 
         // GET: AlumnosController/Details/5

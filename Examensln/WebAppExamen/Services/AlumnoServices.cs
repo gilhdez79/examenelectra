@@ -1,7 +1,9 @@
 ﻿using Entyties.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 using WebAppExamen.Services.IServices;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WebAppExamen.Services
 {
@@ -34,9 +36,21 @@ namespace WebAppExamen.Services
             return false;
         }
 
-        public Task<IEnumerable<AlumnoDto>> FindAllAlumnos()
+        public async Task<IEnumerable<Alumno>> FindAllAlumnos()
         {
-            throw new NotImplementedException();
+            List<Alumno> listAlumnos = new List<Alumno>();
+
+
+            var apiClient = _httpClientFactory.CreateClient("ApiEscuela");
+
+            var result = await apiClient.GetAsync("Alumnos/GetAllAlumnos");
+
+           var jsonString = await result.Content.ReadAsStringAsync();
+
+              listAlumnos = JsonConvert.DeserializeObject<List<Alumno>>(jsonString);
+              return listAlumnos;
+
+
         }
 
         public Task<Alumno> FindAlumnosById(int id)

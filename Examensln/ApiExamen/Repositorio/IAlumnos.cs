@@ -9,6 +9,7 @@ namespace ApiExamen.Repositorio
         public Task<bool> RegistraAlumno(AlumnoDto entity);
         public Task<bool> ActualizaAlumno(AlumnoDto entity);
         public Task<bool> EliminaAlumno(int Idd);
+        public Task<IEnumerable<Alumno>> GetAllAlumnos();
 
 
     }

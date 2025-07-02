@@ -61,6 +61,21 @@ namespace ApiExamen.Controllers
                 return BadRequest(ex);
             }
         }
-    }
+
+        [HttpGet("GetAllAlumnos")]
+        public async Task<ActionResult> GetAllAlumnos()
+        {
+            try
+            {
+                var result = await _Alumno.GetAllAlumnos();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+      }
 
 }

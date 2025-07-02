@@ -49,5 +49,12 @@ namespace ApiExamen.Repositorio
 
             return result>0;
         }
+
+        public async Task<IEnumerable<Alumno>> GetAllAlumnos()
+        {
+            var result =    context.Alumnos.AsEnumerable();
+
+            return result ;
+        }
     }
 }

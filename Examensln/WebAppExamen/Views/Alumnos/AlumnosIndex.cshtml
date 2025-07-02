@@ -1,0 +1,45 @@
+﻿
+@using Entyties.Models
+@model IEnumerable<Alumno>
+@{
+}
+<br/>
+<br/>
+
+<div class="container p-1 border">
+ <div class="row p-2">
+     <div class="col">
+         <h1 class="text-primary">Lista de Alumnos</h1>
+     </div>
+        <div class="col text-end">
+            <a asp-action = "AlumnoCreate" class="btn btn-outline-primary text-end pt-1">
+                <i class="fas fas-plus" /> Registrar Usuarios
+            </a>
+         </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Nombre
+                    </th>
+                    <th>
+                        ApellidoP
+                    </th>
+                    <th>
+                        ApellidoM
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                     <tr>
+                         <td>@item.Nombre</td>
+                        <td>@item.Apaterno</td>
+                        <td>@item.Amaterno</td>
+                     </tr>
+                }
+            </tbody>
+        </table>
+ </div>
+</div>
