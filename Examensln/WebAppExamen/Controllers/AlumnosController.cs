@@ -1,13 +1,21 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Entyties.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebAppExamen.Services.IServices;
 
 namespace WebAppExamen.Controllers
 {
     public class AlumnosController : Controller
     {
+        private readonly IAlumnosServices _alumnosServices;
+        public AlumnosController(IAlumnosServices alumnosServices)
+        {
+            _alumnosServices=alumnosServices;
+        }
         // GET: AlumnosController
         public ActionResult Index()
         {
+
             return View();
         }
 
@@ -20,7 +28,14 @@ namespace WebAppExamen.Controllers
         // GET: AlumnosController/Create
         public ActionResult Create()
         {
-            return View();
+            AlumnoDto alumno = new AlumnoDto()
+            {
+                Amaterno = "hernandez",
+                Apaterno = "Zapata",
+                Nombre = "Sori"
+            };
+            var res = _alumnosServices.CreateAlumnos(alumno);
+            return View(res);
         }
 
         // POST: AlumnosController/Create
