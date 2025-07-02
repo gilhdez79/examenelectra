@@ -18,9 +18,13 @@ namespace WebAppExamen.Services
 
             StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-            var response = _httpClientFactory.CreateClient("ApiEscuela");
+            var apiClient = _httpClientFactory.CreateClient("ApiEscuela");
 
-            var result = await response.PostAsync("Alumnos", httpContent);
+            var result = await apiClient.PostAsJsonAsync("Alumnos", alumno);
+
+            string responseBody = await result.Content.ReadAsStringAsync();
+            //result = JsonConvert.DeserializeObject<RequestResult<T>>(responseBody);
+           // var rsl = await result.Content.<bool>();
 
             if (result.IsSuccessStatusCode)
             {
