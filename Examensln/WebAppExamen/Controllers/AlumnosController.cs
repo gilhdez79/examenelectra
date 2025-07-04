@@ -23,7 +23,7 @@ namespace WebAppExamen.Controllers
         [HttpGet]
         public ActionResult AlumnosIndex()
         {
-            var lista = _alumnosServices.FindAllAlumnos() .Result;
+            var lista = _alumnosServices.FindAllAlumnos().Result;
 
             return View(lista);
 
